@@ -1,92 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"> 
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f2f4f5;
-    --surface: #ffffff;
-    --text: #1b1d20;
-    --muted: #6b7178;
-    --accent: #2f6bff;
-    --shadow: rgba(20, 30, 50, .14);
-    color-scheme: light;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1b1d21;
-      --surface: #272a30;
-      --text: #f1f3f5;
-      --muted: #9aa1a9;
-      --accent: #6c97ff;
-      --shadow: rgba(0, 0, 0, .45);
-      color-scheme: dark;
-    }
+    --ink: #f3f3f1;
+    --muted: #a9a9a6;
+    --line: rgba(255,255,255,.28);
+    --serif: "IM Fell English", "Palatino Linotype", Georgia, serif;
+
+    /* marble: light veins on black, dark veins on white */
+    --veins-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.016' numOctaves='5' seed='11'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0 .75 0 0 0 0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='360' height='360' filter='url(%23m)'/%3E%3C/svg%3E");
+    --veins-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.016' numOctaves='5' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0 .6 0 0 0 0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='360' height='360' filter='url(%23m)'/%3E%3C/svg%3E");
+    --gloss: linear-gradient(135deg, rgba(255,255,255,.22) 0%, rgba(255,255,255,0) 38%, rgba(255,255,255,0) 62%, rgba(255,255,255,.07) 100%);
+    --marble-black: var(--gloss), var(--veins-light), linear-gradient(160deg, #1d1d1d, #060606);
+    --black-hl: linear-gradient(180deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 45%), #050505;
+    --marble-white: var(--gloss), var(--veins-dark), linear-gradient(160deg, #ffffff, #cfcfcc);
+    --btn-bg: linear-gradient(180deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 48%), #050505;
+    --btn-edge: inset 0 1px 0 rgba(255,255,255,.4), inset 0 0 0 1px rgba(255,255,255,.06);
+    color-scheme: dark;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
-  }
-  header { padding: 28px 24px 8px; max-width: 1200px; margin: 0 auto; }
-  h1 { margin: 0; font-size: 1.6rem; font-weight: 800; }
-  .tools { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-  .search {
-    width: 100%; max-width: 360px; padding: 10px 14px;
-    border: 2px solid transparent; border-radius: 10px;
-    background: var(--surface); color: var(--text); font: inherit;
-  }
-  .search:focus { outline: none; border-color: var(--accent); }
+  body { background: #030303; color: var(--ink); font-family: var(--serif); font-size: 1.05rem; }
+  #bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; display: block; }
 
-  .row-title { max-width: 1200px; margin: 18px auto 0; padding: 0 24px; font-size: 1.1rem; font-weight: 700; }
+  header { padding: 34px 24px 8px; max-width: 1200px; margin: 0 auto; }
+  h1 {
+    margin: 0; font-family: Arial, Helvetica, sans-serif; font-weight: 700;
+    font-size: 2.4rem; letter-spacing: -.01em;
+  }
+  .tools { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+  .search {
+    width: 100%; max-width: 340px; padding: 11px 16px; font: inherit; color: var(--ink);
+    background: var(--btn-bg); box-shadow: var(--btn-edge); border: 1px solid var(--line); border-radius: 4px;
+    transition: transform .18s ease, border-color .18s ease;
+  }
+  .search::placeholder { color: var(--muted); }
+  .search:hover { transform: scale(1.04); }
+  .search:focus { outline: none; border-color: #fff; }
+
+  .btn {
+    border: 1px solid var(--line); border-radius: 4px; padding: 10px 18px; font: inherit;
+    background: var(--btn-bg); color: var(--ink); cursor: pointer; text-decoration: none;
+    box-shadow: var(--btn-edge), 0 2px 10px rgba(0,0,0,.6);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    display: inline-block;
+  }
+  .btn:hover, .btn:focus-visible { transform: scale(1.08); border-color: rgba(255,255,255,.75); box-shadow: var(--btn-edge), 0 6px 18px rgba(0,0,0,.8); outline: none; }
+
+  /* about:blank buttons: white with black highlights and black text */
+  .btn.blank {
+    background: linear-gradient(180deg, rgba(0,0,0,.16) 0%, rgba(0,0,0,0) 48%), #f5f5f3;
+    color: #000; border-color: rgba(0,0,0,.65);
+    box-shadow: inset 0 1px 0 rgba(0,0,0,.35), inset 0 0 0 1px rgba(0,0,0,.08), 0 2px 10px rgba(0,0,0,.6);
+  }
+  .btn.blank:hover, .btn.blank:focus-visible {
+    border-color: #000;
+    box-shadow: inset 0 1px 0 rgba(0,0,0,.5), inset 0 0 0 1px rgba(0,0,0,.12), 0 6px 18px rgba(0,0,0,.8);
+  }
+
+  .row-title {
+    max-width: 1200px; margin: 22px auto 0; padding: 0 24px; font-size: 1.3rem; font-style: italic;
+  }
+  .row-title::after { content: ""; display: block; margin-top: 8px; height: 1px; background: var(--line); }
+
   .grid {
-    max-width: 1200px; margin: 0 auto; padding: 12px 24px 48px;
-    display: grid; gap: 18px;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    max-width: 1200px; margin: 0 auto; padding: 18px 24px 56px;
+    display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
   .game {
-    all: unset; cursor: pointer; display: block;
-    border-radius: 12px; padding: 8px; transition: background .15s;
+    all: unset; cursor: pointer; display: block; position: relative;
+    padding: 8px; border-radius: 6px;
+    transition: transform .18s ease;
   }
-  .game:hover { background: var(--surface); }
-  .game:focus-visible { outline: 3px solid var(--accent); }
+  .game:hover, .game:focus-visible { transform: scale(1.07); z-index: 2; }
+  .game:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
   .icon {
-    width: 100%; aspect-ratio: 1; border-radius: 12px; overflow: hidden;
-    background: var(--surface); box-shadow: 0 2px 8px var(--shadow);
+    position: relative; width: 100%; aspect-ratio: 1; overflow: hidden; border-radius: 4px;
+    background: var(--btn-bg); border: 1px solid var(--line);
+    box-shadow: var(--btn-edge), 0 8px 22px rgba(0,0,0,.7);
     display: flex; align-items: center; justify-content: center;
-    font-size: 3rem; font-weight: 800; color: var(--muted);
+    font-size: 3rem; color: var(--muted);
   }
   .icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .name {
-    margin-top: 8px; font-weight: 700; font-size: .95rem; line-height: 1.25;
+    .name {
+    margin-top: 10px; font-size: 1rem; line-height: 1.25; text-align: center;
     display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
   }
   .empty { max-width: 1200px; margin: 0 auto; padding: 0 24px; color: var(--muted); }
 
   /* Game player */
-  #player { position: fixed; inset: 0; background: var(--bg); display: none; flex-direction: column; z-index: 10; }
+  #player { position: fixed; inset: 0; background: #000; display: none; flex-direction: column; z-index: 10; }
   #player.open { display: flex; }
-  .bar { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--surface); box-shadow: 0 1px 6px var(--shadow); }
-  .bar .title { font-weight: 800; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .btn {
-    border: 0; border-radius: 8px; padding: 8px 14px; font: inherit; font-weight: 700;
-    background: var(--accent); color: #fff; cursor: pointer; text-decoration: none;
-  }
-  .btn.alt { background: transparent; color: var(--text); border: 2px solid var(--shadow); }
+  .bar { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #050505; border-bottom: 1px solid var(--line); }
+  .bar .title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 1.15rem; }
   #frame { flex: 1; width: 100%; border: 0; background: #000; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .game, .search { transition: none; }
+  }
 </style>
 </head>
 <body>
+<canvas id="bg" aria-hidden="true"></canvas>
 
 <header>
   <h1>Games</h1>
   <div class="tools">
     <input class="search" id="search" type="search" placeholder="Search games" aria-label="Search games">
-    <button class="btn" id="blankSite">Open site in about:blank</button>
+    <button class="btn blank" id="blankSite">Open site in about:blank</button>
   </div>
 </header>
 
@@ -98,7 +127,7 @@
   <div class="bar">
     <button class="btn alt" id="back">Back</button>
     <span class="title" id="ptitle"></span>
-    <button class="btn alt" id="blankGame">Open in about:blank</button>
+    <button class="btn blank" id="blankGame">Open in about:blank</button>
     <a class="btn" id="newtab" target="_blank" rel="noopener">Open in new tab</a>
   </div>
   <iframe id="frame" allow="fullscreen; autoplay; gamepad; clipboard-write" allowfullscreen></iframe>
@@ -106,12 +135,8 @@
 
 <script>
   /* ============ EDIT THIS PART ============
-     Add one line per game:
-       name: Hollow Knight - webport
-       icon: "icons/hollow-knight.webp"
-       url:  "https://293701987.github.io/test/"
-     OPEN_MODE: "embed" = plays inside this site (with a "Open in new tab" button)
-                "tab"   = opens the link in a new tab
+     One line per game: name, icon (path in your repo), url (link it opens)
+     OPEN_MODE: "embed" = plays inside this site, "tab" = opens in a new tab
   ======================================== */
   const OPEN_MODE = "embed";
 
@@ -190,6 +215,69 @@
   });
 
   render(GAMES);
+
+  /* ===== Background: flowing woven strands (black and white) ===== */
+  (function () {
+    const cv = document.getElementById("bg");
+    const ctx = cv.getContext("2d");
+    let W, H;
+    function size() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = window.innerWidth; H = window.innerHeight;
+      cv.width = W * dpr; cv.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    size();
+    window.addEventListener("resize", size);
+
+    const bundles = [];
+    for (let b = 0; b < 7; b++) {
+      bundles.push({
+        y: (b + .5) / 7,
+        amp: 50 + Math.random() * 90,
+        f: .0025 + Math.random() * .003,
+        sp: .25 + Math.random() * .35,
+        ph: Math.random() * 6.28,
+        tilt: (Math.random() - .5) * .25,
+        gap: 5 + Math.random() * 4,
+        n: 9
+      });
+    }
+
+    function draw(t) {
+      ctx.fillStyle = "#030303";
+      ctx.fillRect(0, 0, W, H);
+      const g = ctx.createRadialGradient(W * .5, H * .4, 0, W * .5, H * .4, Math.max(W, H) * .8);
+      g.addColorStop(0, "rgba(255,255,255,.07)");
+      g.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+      ctx.lineCap = "round";
+
+      bundles.forEach(bd => {
+        for (let i = 0; i < bd.n; i++) {
+          const k = i - (bd.n - 1) / 2;
+          ctx.beginPath();
+          for (let x = -20; x <= W + 20; x += 10) {
+            const weave = 1 + .9 * Math.sin(x * bd.f * .7 + bd.ph + t * .0002);
+            const y = bd.y * H + bd.tilt * (x - W / 2)
+              + Math.sin(x * bd.f + bd.ph + t * .001 * bd.sp) * bd.amp
+              + Math.sin(x * bd.f * 2.3 + i * .5 + t * .0014 * bd.sp) * bd.amp * .22
+              + k * bd.gap * weave;
+            if (x === -20) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          const edge = 1 - Math.abs(k) / (bd.n / 2);
+          ctx.strokeStyle = "rgba(255,255,255," + (.06 + edge * .3) + ")";
+          ctx.lineWidth = .8 + edge * 2.2;
+          ctx.stroke();
+        }
+      });
+    }
+
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (still) { draw(0); window.addEventListener("resize", () => draw(0)); return; }
+    (function loop(t) { draw(t); requestAnimationFrame(loop); })(0);
+  })();
 </script>
 </body>
 </html>
