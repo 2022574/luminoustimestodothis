@@ -34,8 +34,9 @@
   }
   header { padding: 28px 24px 8px; max-width: 1200px; margin: 0 auto; }
   h1 { margin: 0; font-size: 1.6rem; font-weight: 800; }
+  .tools { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
   .search {
-    margin-top: 14px; width: 100%; max-width: 360px; padding: 10px 14px;
+    width: 100%; max-width: 360px; padding: 10px 14px;
     border: 2px solid transparent; border-radius: 10px;
     background: var(--surface); color: var(--text); font: inherit;
   }
@@ -83,7 +84,10 @@
 
 <header>
   <h1>Games</h1>
-  <input class="search" id="search" type="search" placeholder="Search games" aria-label="Search games">
+  <div class="tools">
+    <input class="search" id="search" type="search" placeholder="Search games" aria-label="Search games">
+    <button class="btn" id="blankSite">Open site in about:blank</button>
+  </div>
 </header>
 
 <div class="row-title">All games</div>
@@ -94,6 +98,7 @@
   <div class="bar">
     <button class="btn alt" id="back">Back</button>
     <span class="title" id="ptitle"></span>
+    <button class="btn alt" id="blankGame">Open in about:blank</button>
     <a class="btn" id="newtab" target="_blank" rel="noopener">Open in new tab</a>
   </div>
   <iframe id="frame" allow="fullscreen; autoplay; gamepad; clipboard-write" allowfullscreen></iframe>
@@ -112,6 +117,7 @@
 
   const GAMES = [
     { name: "Hollow Knight - webport", icon: "icons/hollow-knight.webp", url: "https://293701987.github.io/test/" },
+    // { name: "Hollow Knight - webport", icon: "icons/hollow-knight.webp", url: "https://293701987.github.io/test/" },
   ];
 
   const grid = document.getElementById("grid");
@@ -119,7 +125,25 @@
   const player = document.getElementById("player");
   const frame = document.getElementById("frame");
 
+  /* Opens a blank tab and loads the page inside it */
+  function openBlank(url, title) {
+    const w = window.open("about:blank", "_blank");
+    if (!w) { alert("Your browser blocked the pop-up. Allow pop-ups for this site and try again."); return; }
+    w.document.title = title;
+    w.document.body.style.cssText = "margin:0;height:100vh;overflow:hidden;background:#000";
+    const f = w.document.createElement("iframe");
+    f.src = url;
+    f.style.cssText = "border:0;width:100%;height:100%";
+    f.allow = "fullscreen; autoplay; gamepad; clipboard-write";
+    f.setAttribute("allowfullscreen", "");
+    w.document.body.appendChild(f);
+  }
+  let currentGame = null;
+  document.getElementById("blankSite").onclick = () => openBlank(location.href, "Games");
+  document.getElementById("blankGame").onclick = () => currentGame && openBlank(currentGame.url, currentGame.name);
+
   function openGame(g) {
+    currentGame = g;
     if (OPEN_MODE === "tab") { window.open(g.url, "_blank", "noopener"); return; }
     document.getElementById("ptitle").textContent = g.name;
     document.getElementById("newtab").href = g.url;
