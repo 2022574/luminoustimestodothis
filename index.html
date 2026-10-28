@@ -269,6 +269,11 @@
     player.classList.toggle("fs", on);
     player.classList.remove("show");
     fsBtn.textContent = on ? "Exit fullscreen" : "Fullscreen";
+    /* Keyboard Lock: Esc goes to the game; hold Esc for about 2 seconds to leave fullscreen */
+    if (navigator.keyboard && navigator.keyboard.lock) {
+      if (on) navigator.keyboard.lock(["Escape"]).catch(() => {});
+      else navigator.keyboard.unlock();
+    }
   });
   function showBar() { clearTimeout(hideTimer); player.classList.add("show"); }
   function hideBar() { player.classList.remove("show"); }
