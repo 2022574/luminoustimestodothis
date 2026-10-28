@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"> 
-<title>Games (v2)</title>
+<title>Games (v1.3.4)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"> 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -41,6 +41,8 @@
     content: ""; position: absolute; bottom: 0; left: calc(50% - 50vw); width: 100vw; height: 2px;
     background: linear-gradient(90deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 100%);
   }
+  header { position: relative; }
+  .version { position: absolute; top: 44px; right: 24px; font-size: 1.3rem; font-style: italic; color: var(--ink); }
   .tools { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
   .search {
@@ -132,6 +134,7 @@
 
 <header>
   <h1>Games</h1>
+  <div class="version">Version 1.3.4</div>
   <div class="tools">
     <input class="search" id="search" type="search" placeholder="Search games" aria-label="Search games">
     <button class="btn blank" id="blankSite">Open site in about:blank</button>
@@ -217,7 +220,7 @@
     if (document.fullscreenElement) document.exitFullscreen();
     player.classList.remove("open");
     frame.src = "about:blank";
-    document.title = "Games (v2)";
+    document.title = "Games (v1.3.4)";
   }
   document.getElementById("back").onclick = closeGame;
   document.addEventListener("keydown", e => { if (e.key === "Escape" && player.classList.contains("open") && !document.fullscreenElement) closeGame(); });
