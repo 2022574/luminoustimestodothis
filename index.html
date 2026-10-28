@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"> 
-<title>Games (v1.3.09)</title>
+<title>Games (v1.3.10)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"> 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -33,7 +33,7 @@
 
   header { padding: 34px 24px 8px; max-width: 1200px; margin: 0 auto; }
   h1 {
-    margin: 0; font-family: Arial, Helvetica, sans-serif; font-weight: 700;
+    margin: 0; font-family: var(--serif); font-weight: 700;
     font-size: 2.4rem; letter-spacing: -.01em;
   }
   h1 { position: relative; padding-bottom: 12px; }
@@ -56,7 +56,10 @@
 
   .btn {
     border: 1px solid var(--line); border-radius: 4px; padding: 10px 18px; font: inherit;
-    background: var(--btn-bg); color: var(--ink); cursor: pointer; text-decoration: none;
+    background: linear-gradient(180deg, #8c8c8c 0%, #ffffff 100%), var(--btn-bg);
+    -webkit-background-clip: text, border-box, border-box; background-clip: text, border-box, border-box;
+    -webkit-text-fill-color: transparent; color: transparent;
+    cursor: pointer; text-decoration: none;
     box-shadow: var(--btn-edge), 0 2px 10px rgba(0,0,0,.6);
     transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     display: inline-block;
@@ -67,6 +70,7 @@
   .btn.blank {
     background: linear-gradient(180deg, rgba(0,0,0,.16) 0%, rgba(0,0,0,0) 48%), #f5f5f3;
     color: #000; border-color: rgba(0,0,0,.65);
+    -webkit-background-clip: border-box; background-clip: border-box; -webkit-text-fill-color: #000;
     box-shadow: inset 0 1px 0 rgba(0,0,0,.35), inset 0 0 0 1px rgba(0,0,0,.08), 0 2px 10px rgba(0,0,0,.6);
   }
   .btn.blank:hover, .btn.blank:focus-visible {
@@ -124,6 +128,13 @@
   #player.fs.show .bar { transform: translateY(0); }
   #player.fs.show #hot { display: none; }
 
+  /* Grey-to-white gradient text (top to bottom) */
+  h1, .version, .row-title, .name, .bar .title, .empty {
+    background-image: linear-gradient(180deg, #8c8c8c 0%, #ffffff 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .btn, .game, .search { transition: none; }
   }
@@ -134,7 +145,7 @@
 
 <header>
   <h1>Games</h1>
-  <div class="version">Version 1.3.09</div>
+  <div class="version">Version 1.3.10</div>
   <div class="tools">
     <input class="search" id="search" type="search" placeholder="Search games" aria-label="Search games">
     <button class="btn blank" id="blankSite">Open site in about:blank</button>
@@ -220,7 +231,7 @@
     if (document.fullscreenElement) document.exitFullscreen();
     player.classList.remove("open");
     frame.src = "about:blank";
-    document.title = "Games (v1.3.09)";
+    document.title = "Games (v1.3.10)";
   }
   document.getElementById("back").onclick = closeGame;
   document.addEventListener("keydown", e => { if (e.key === "Escape" && player.classList.contains("open") && !document.fullscreenElement) closeGame(); });
