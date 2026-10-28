@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"> 
-<title>Games</title>
+<title>Games (v2)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"> 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -116,14 +116,14 @@
   #hot { display: none; position: absolute; top: 0; left: 0; right: 0; height: 14px; z-index: 5; }
   #player.fs #hot { display: block; }
   #player.fs .bar {
-    position: absolute; top: 0; left: 0; right: 0; z-index: 6; 
+    position: absolute; top: 0; left: 0; right: 0; z-index: 6;
     transform: translateY(-110%); transition: transform .22s ease;
   }
   #player.fs.show .bar { transform: translateY(0); }
   #player.fs.show #hot { display: none; }
 
   @media (prefers-reduced-motion: reduce) {
-    .btn, .game, .search { transition: none; } 
+    .btn, .game, .search { transition: none; }
   }
 </style>
 </head>
@@ -217,7 +217,7 @@
     if (document.fullscreenElement) document.exitFullscreen();
     player.classList.remove("open");
     frame.src = "about:blank";
-    document.title = "Games";
+    document.title = "Games (v2)";
   }
   document.getElementById("back").onclick = closeGame;
   document.addEventListener("keydown", e => { if (e.key === "Escape" && player.classList.contains("open") && !document.fullscreenElement) closeGame(); });
@@ -256,10 +256,10 @@
   const fsBtn = document.getElementById("fs");
   const hot = document.getElementById("hot");
   let hideTimer = null;
-  if (!player.requestFullscreen) fsBtn.style.display = "none";
   fsBtn.onclick = () => {
     if (document.fullscreenElement) document.exitFullscreen();
-    else player.requestFullscreen().catch(() => {});
+    else if (player.requestFullscreen) player.requestFullscreen().catch(() => alert("Fullscreen is blocked here. Try Open in new tab and use fullscreen from the game page."));
+    else alert("This browser does not support fullscreen.");
   };
   document.addEventListener("fullscreenchange", () => {
     const on = document.fullscreenElement === player;
