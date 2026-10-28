@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"> 
-<title>Games</title> 
+<title>Games</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"> 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -112,6 +112,16 @@
   .bar .title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 1.15rem; }
   #frame { flex: 1; width: 100%; border: 0; background: #000; }
 
+  /* Fullscreen mode */
+  #hot { display: none; position: absolute; top: 0; left: 0; right: 0; height: 14px; z-index: 5; }
+  #player.fs #hot { display: block; }
+  #player.fs .bar {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 6;
+    transform: translateY(-110%); transition: transform .22s ease;
+  }
+  #player.fs.show .bar { transform: translateY(0); }
+  #player.fs.show #hot { display: none; }
+
   @media (prefers-reduced-motion: reduce) {
     .btn, .game, .search { transition: none; }
   }
@@ -136,9 +146,11 @@
   <div class="bar">
     <button class="btn alt" id="back">Back</button>
     <span class="title" id="ptitle"></span>
+    <button class="btn alt" id="fs">Fullscreen</button>
     <button class="btn blank" id="blankGame">Open in about:blank</button>
     <a class="btn" id="newtab" target="_blank" rel="noopener">Open in new tab</a>
   </div>
+  <div id="hot"></div>
   <iframe id="frame" allow="fullscreen; autoplay; gamepad; clipboard-write" allowfullscreen></iframe>
 </div>
 
@@ -202,12 +214,13 @@
     document.title = g.name;
   }
   function closeGame() {
+    if (document.fullscreenElement) document.exitFullscreen();
     player.classList.remove("open");
     frame.src = "about:blank";
     document.title = "Games";
   }
   document.getElementById("back").onclick = closeGame;
-  document.addEventListener("keydown", e => { if (e.key === "Escape" && player.classList.contains("open")) closeGame(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && player.classList.contains("open") && !document.fullscreenElement) closeGame(); });
 
   function render(list) {
     grid.innerHTML = "";
@@ -238,6 +251,27 @@
     const q = e.target.value.trim().toLowerCase();
     render(GAMES.filter(g => g.name.toLowerCase().includes(q)));
   });
+
+  /* ===== Fullscreen mode: bar hides, shows when mouse is near the top ===== */
+  const fsBtn = document.getElementById("fs");
+  const hot = document.getElementById("hot");
+  let hideTimer = null;
+  if (!player.requestFullscreen) fsBtn.style.display = "none";
+  fsBtn.onclick = () => {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else player.requestFullscreen().catch(() => {});
+  };
+  document.addEventListener("fullscreenchange", () => {
+    const on = document.fullscreenElement === player;
+    player.classList.toggle("fs", on);
+    player.classList.remove("show");
+    fsBtn.textContent = on ? "Exit fullscreen" : "Fullscreen";
+  });
+  function showBar() { clearTimeout(hideTimer); player.classList.add("show"); }
+  function hideBar() { player.classList.remove("show"); }
+  hot.addEventListener("mouseenter", showBar);
+  hot.addEventListener("click", () => { showBar(); hideTimer = setTimeout(hideBar, 3500); });
+  document.querySelector(".bar").addEventListener("mouseleave", hideBar);
 
   render(GAMES);
 
