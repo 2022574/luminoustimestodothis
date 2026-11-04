@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"> 
-<title>Games (v1.6.30)</title>
+<title>Games (v1.6.35)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">  
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -145,7 +145,7 @@
 
 <header>
   <h1>Games</h1>
-  <div class="version">Version 1.6.30</div>
+  <div class="version">Version 1.6.35</div>
   <div class="tools">
     <input class="search" id="search" type="search" placeholder="Search games" aria-label="Search games">
     <button class="btn blank" id="blankSite">Open site in about:blank</button>
@@ -187,8 +187,7 @@
     { name: "Cuphead - webport", icon: "icons/cuphead.png", url: "https://293701987.github.io/CupheadWeb/" },
     { name: "60 Seconds - webport", icon: "icons/60-seconds-reatomized.png", url: "https://293701987.github.io/60-Seconds-Webport/" },
     { name: "Ultrakill - webport", icon: "icons/UK.webp", url: "https://293701987.github.io/ultrakillworknowpls/" }, 
-    { name: "Undertale - webport", icon: "icons/Undertale-logo.jpg", url: "https://293701987.github.io/Undertale-HTML/" },
-    { name: "Deltarune - webport", icon: "icons/Deltarune.webp", url: "https://293701987.github.io/Deltarune-HTML/" },
+    { name: "Toby Web", icon: "icons/Undertale-logo.jpg", url: "https://2022574.github.io/broworkman//" },
     { name: "deeeeer simulator - webport", icon: "icons/DS.jpeg", url: "https://293701987.github.io/deeertest/" },
     { name: "The Binding of Isaac - webport", icon: "icons/TBI.webp", url: "https://293701987.github.io/the-browsing-of-isaac/" },
     { name: "Bendy and the Ink Machine - webport", icon: "icons/BTIM.webp", url: "https://293701987.github.io/BATIMFullPort/" },
@@ -252,7 +251,7 @@
     if (document.fullscreenElement) document.exitFullscreen();
     player.classList.remove("open");
     frame.src = "about:blank";
-    document.title = "Games (v1.6.30)";
+    document.title = "Games (v1.6.35)";
   }
   document.getElementById("back").onclick = closeGame;
   document.addEventListener("keydown", e => { if (e.key === "Escape" && player.classList.contains("open") && !document.fullscreenElement) closeGame(); });
