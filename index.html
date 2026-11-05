@@ -240,14 +240,28 @@
   document.getElementById("blankSite").onclick = () => openBlank(location.href, "Games");
   document.getElementById("blankGame").onclick = () => currentGame && openBlank(currentGame.url, currentGame.name);
 
-  function openGame(g) {
-    currentGame = g;
-    if (OPEN_MODE === "tab") { window.open(g.url, "_blank", "noopener"); return; }
-    document.getElementById("ptitle").textContent = g.name;
-    document.getElementById("newtab").href = g.url;
-    frame.src = g.url;
-    player.classList.add("open");
-    document.title = g.name;
+
+function openGame(g) {
+  currentGame = g;
+
+  // Forager must open outside the embedded player
+  if (g.name.toLowerCase().includes("forager")) {
+    window.location.href = g.url;
+    return;
+  }
+
+  if (OPEN_MODE === "tab") {
+    window.open(g.url, "_blank", "noopener");
+    return;
+  }
+
+  document.getElementById("ptitle").textContent = g.name;
+  document.getElementById("newtab").href = g.url;
+  frame.src = g.url;
+  player.classList.add("open");
+  document.title = g.name;
+}
+
   }
   function closeGame() {
     if (document.fullscreenElement) document.exitFullscreen();
