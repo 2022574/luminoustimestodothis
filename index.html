@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"> 
-<title>Games (v1.6.35)</title>
+<title>Games (v1.7.35)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">  
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
@@ -145,7 +145,7 @@
 
 <header>
   <h1>Games</h1>
-  <div class="version">Version 1.6.35</div>
+  <div class="version">Version 1.7.35</div>
   <div class="tools">
     <input class="search" id="search" type="search" placeholder="Search games" aria-label="Search games">
     <button class="btn blank" id="blankSite">Open site in about:blank</button>
@@ -214,6 +214,7 @@
     { name: "Getting Over It - webport", icon: "icons/gettingoverit.jpeg", url: "https://2022574.github.io/getoverit/" },
     { name: "PEAK - webport", icon: "icons/peakthegame.jpeg", url: "https://2022574.github.io/peak/?cdn=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fwasmdotrip%2FPeak-Port%40main" },
     { name: "Feed Grow Fish - webport", icon: "icons/feedgrowfish.jpeg", url: "https://293701987.github.io/feedgrowfishsopeak/" },
+    { name: "Forager - webport", icon: "icons/forager.jpeg", url: "https://6s4bpxwk47dwm0cx.05k.lambda-web.us-east-2.on.aws/" },
   ];
 
   const grid = document.getElementById("grid");
@@ -251,7 +252,7 @@
     if (document.fullscreenElement) document.exitFullscreen();
     player.classList.remove("open");
     frame.src = "about:blank";
-    document.title = "Games (v1.6.35)";
+    document.title = "Games (v1.7.35)";
   }
   document.getElementById("back").onclick = closeGame;
   document.addEventListener("keydown", e => { if (e.key === "Escape" && player.classList.contains("open") && !document.fullscreenElement) closeGame(); });
