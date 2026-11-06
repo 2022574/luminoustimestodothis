@@ -4,29 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Obscura</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --ink: #f3f3f1;
-  --muted: #a9a9a6;
-  --line: rgba(255,255,255,.28);
+  --ink: #f3f0e9;
+  --muted: #aaa49a;
+  --line: rgba(220,215,200,.28);
   --serif: "IM Fell English", "Palatino Linotype", Georgia, serif;
 
-  --veins-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.016' numOctaves='5' seed='11'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0 .75 0 0 0 0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='360' height='360' filter='url(%23m)'/%3E%3C/svg%3E");
-  --veins-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.016' numOctaves='5' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0 0 .6 0 0 0 0'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='360' height='360' filter='url(%23m)'/%3E%3C/svg%3E");
-  --gloss: linear-gradient(135deg, rgba(255,255,255,.22) 0%, rgba(255,255,255,0) 38%, rgba(255,255,255,0) 62%, rgba(255,255,255,.07) 100%);
-  --marble-black: var(--gloss), var(--veins-light), linear-gradient(160deg, #1d1d1d, #060606);
-  --black-hl: linear-gradient(180deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 45%), #050505;
-  --marble-white: var(--gloss), var(--veins-dark), linear-gradient(160deg, #ffffff, #cfcfcc);
-  --btn-bg: linear-gradient(180deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 48%), #050505;
-  --btn-edge: inset 0 1px 0 rgba(255,255,255,.4), inset 0 0 0 1px rgba(255,255,255,.06);
+  --gloss: linear-gradient(135deg, rgba(255,255,255,.12), transparent 45%);
+  --black-hl: linear-gradient(180deg, rgba(255,255,255,.12), transparent 45%), #050403;
+  --btn-bg: linear-gradient(180deg, rgba(255,255,255,.12), transparent 48%), #080706;
+  --btn-edge: inset 0 1px 0 rgba(255,255,255,.25), inset 0 0 0 1px rgba(255,255,255,.04);
+
   color-scheme: dark;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 html, body {
   margin: 0;
@@ -35,10 +35,11 @@ html, body {
 
 body {
   overflow-x: hidden;
-  background: #030303;
+  background: #030302;
   color: var(--ink);
   font-family: var(--serif);
   font-size: 1.05rem;
+  text-shadow: 0 1px 3px rgba(0,0,0,.8);
 }
 
 #bg {
@@ -66,37 +67,57 @@ body {
 #home h1 {
   margin: 0;
   font-family: var(--serif);
-  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-size: clamp(3.5rem, 9vw, 6.5rem);
   font-weight: 700;
-  letter-spacing: -.035em;
-  background: linear-gradient(180deg, #8c8c8c 0%, #ffffff 100%);
+  letter-spacing: -.045em;
+  background: linear-gradient(180deg, #aaa49a 0%, #ffffff 55%, #c8c1b5 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+  text-shadow: none;
+}
+
+.home-divider {
+  width: min(340px, 65vw);
+  height: 2px;
+  margin: 15px 0;
+  background: linear-gradient(90deg, transparent, rgba(235,230,215,.85), transparent);
+}
+
+.home-white-line {
+  width: 75px;
+  height: 2px;
+  margin: 3px 0 22px;
+  background: rgba(255,255,255,.8);
+  box-shadow: 0 0 12px rgba(255,255,255,.25);
 }
 
 .home-games {
-  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
   padding: 7px 17px;
   font-family: var(--serif);
   font-size: .95rem;
+  letter-spacing: .04em;
   color: var(--ink);
-  background: rgba(255,255,255,.045);
-  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,.12), transparent), rgba(8,7,6,.85);
+  border: 1px solid rgba(220,215,200,.35);
   border-radius: 4px;
+  box-shadow: var(--btn-edge), 0 4px 14px rgba(0,0,0,.5);
   cursor: pointer;
-  transition: background .2s ease, border-color .2s ease;
+  transition: background .2s, border-color .2s;
 }
 
 .home-games:hover {
-  background: rgba(255,255,255,.14);
-  border-color: rgba(255,255,255,.7);
+  background: rgba(255,255,255,.13);
+  border-color: rgba(255,255,255,.75);
 }
 
-.home-games span {
-  margin-right: 5px;
-  font-size: .9rem;
+.home-games .controller {
+  font-size: 1rem;
 }
 
 /* LEFT SIDEBAR */
@@ -110,33 +131,27 @@ body {
   z-index: 31;
   top: 16px;
   left: 16px;
-  width: 155px;
+  width: 145px;
   height: auto;
-  padding: 12px;
+  padding: 10px;
   background:
-    linear-gradient(135deg, rgba(255,255,255,.12), transparent 45%),
-    rgba(5,5,5,.96);
+    linear-gradient(135deg, rgba(255,255,255,.09), transparent 50%),
+    rgba(5,5,4,.92);
   border: 1px solid var(--line);
   border-radius: 5px;
-  box-shadow: 8px 0 25px rgba(0,0,0,.55);
+  box-shadow: 5px 5px 25px rgba(0,0,0,.65);
   display: flex;
   flex-direction: column;
   gap: 6px;
-  transform: translateX(0);
-  transition: none;
-}
-
-#sidebar.open {
-  transform: translateX(0);
 }
 
 .sidebar-brand {
   font-size: 1.2rem;
   text-align: center;
-  margin: 0 0 8px;
+  margin: 0 0 5px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--line);
-  background: linear-gradient(180deg, #8c8c8c, #fff);
+  background: linear-gradient(180deg, #aaa49a, #fff);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -163,7 +178,7 @@ body {
 }
 
 .side-link.active {
-  box-shadow: inset 3px 0 0 rgba(255,255,255,.8);
+  box-shadow: inset 2px 0 0 rgba(255,255,255,.8);
 }
 
 /* GAMES SECTION */
@@ -178,20 +193,21 @@ body {
 }
 
 header {
-  padding: 34px 24px 12px;
+  padding: 32px 24px 12px;
   max-width: 1200px;
   margin: 0 auto;
   position: relative;
+  background: linear-gradient(180deg, rgba(255,255,255,.025), transparent);
 }
 
 h1 {
   margin: 0;
   font-family: var(--serif);
   font-weight: 700;
-  font-size: 2.4rem;
-  letter-spacing: -.01em;
+  font-size: 2.5rem;
+  letter-spacing: -.025em;
   position: relative;
-  padding-bottom: 12px;
+  padding-bottom: 14px;
 }
 
 h1::after {
@@ -201,12 +217,12 @@ h1::after {
   left: calc(50% - 50vw);
   width: 100vw;
   height: 2px;
-  background: linear-gradient(90deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(90deg, rgba(235,230,215,.9), rgba(255,255,255,0));
 }
 
 .version {
   position: absolute;
-  top: 34px;
+  top: 40px;
   right: 24px;
   font-size: 1.1rem;
   font-style: italic;
@@ -214,7 +230,7 @@ h1::after {
 }
 
 .tools {
-  margin-top: 14px;
+  margin-top: 18px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -224,7 +240,7 @@ h1::after {
 .search {
   width: 100%;
   max-width: 340px;
-  padding: 9px 13px;
+  padding: 10px 14px;
   font: inherit;
   color: var(--ink);
   background: var(--btn-bg);
@@ -234,18 +250,24 @@ h1::after {
   transition: border-color .18s ease;
 }
 
-.search::placeholder { color: var(--muted); }
-.search:focus { outline: none; border-color: #fff; }
+.search::placeholder {
+  color: var(--muted);
+}
+
+.search:focus {
+  outline: none;
+  border-color: #fff;
+}
 
 .btn {
   border: 1px solid var(--line);
   border-radius: 4px;
-  padding: 7px 12px;
-  font: inherit;
-  font-size: .88rem;
-  background: linear-gradient(180deg, #8c8c8c 0%, #ffffff 100%), var(--btn-bg);
-  -webkit-background-clip: text, border-box, border-box;
-  background-clip: text, border-box, border-box;
+  padding: 8px 13px;
+  font-family: var(--serif);
+  font-size: .95rem;
+  background: linear-gradient(180deg, #aaa49a 0%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
   cursor: pointer;
@@ -263,13 +285,13 @@ h1::after {
 }
 
 .btn.blank {
-  background: linear-gradient(180deg, rgba(0,0,0,.16) 0%, rgba(0,0,0,0) 48%), #f5f5f3;
+  background: linear-gradient(180deg, rgba(0,0,0,.16), transparent 48%), #e9e6df;
   color: #000;
   border-color: rgba(0,0,0,.65);
   -webkit-background-clip: border-box;
   background-clip: border-box;
   -webkit-text-fill-color: #000;
-  box-shadow: inset 0 1px 0 rgba(0,0,0,.35), inset 0 0 0 1px rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.5);
+  box-shadow: inset 0 1px 0 rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.5);
 }
 
 .row-title {
@@ -286,7 +308,7 @@ h1::after {
   margin-top: 10px;
   height: 2px;
   width: 100%;
-  background: linear-gradient(90deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 50%);
+  background: linear-gradient(90deg, rgba(235,230,215,.9), transparent 50%);
 }
 
 .grid {
@@ -368,17 +390,22 @@ h1::after {
   background: #000;
   display: none;
   flex-direction: column;
-  z-index: 10;
+  z-index: 40;
 }
 
-#player.open { display: flex; }
+#player.open {
+  display: flex;
+}
 
 .bar {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 6px 9px;
-  background: #050505;
+  gap: 10px;
+  padding: 12px 15px;
+  min-height: 58px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.09), transparent),
+    #080706;
   border-bottom: 1px solid var(--line);
 }
 
@@ -387,12 +414,12 @@ h1::after {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: .95rem;
+  font-size: 1.15rem;
 }
 
 .bar .btn {
-  padding: 5px 9px;
-  font-size: .78rem;
+  padding: 8px 13px;
+  font-size: .95rem;
 }
 
 #frame {
@@ -414,7 +441,9 @@ h1::after {
   z-index: 5;
 }
 
-#player.fs #hot { display: block; }
+#player.fs #hot {
+  display: block;
+}
 
 #player.fs .bar {
   position: absolute;
@@ -426,13 +455,18 @@ h1::after {
   transition: transform .22s ease;
 }
 
-#player.fs.show .bar { transform: translateY(0); }
-#player.fs.show #hot { display: none; }
+#player.fs.show .bar {
+  transform: translateY(0);
+}
+
+#player.fs.show #hot {
+  display: none;
+}
 
 /* GRADIENT TEXT */
 
 h1, .version, .row-title, .name, .bar .title, .empty {
-  background-image: linear-gradient(180deg, #8c8c8c 0%, #ffffff 100%);
+  background-image: linear-gradient(180deg, #aaa49a 0%, #ffffff 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -440,25 +474,46 @@ h1, .version, .row-title, .name, .bar .title, .empty {
 }
 
 @media (max-width: 600px) {
-  .version { position: static; margin-top: 8px; }
-  header { padding-top: 22px; }
-  .grid { grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); gap: 12px; }
-  #sidebar { width: 145px; }
-  .bar { flex-wrap: wrap; }
-  .bar .title { min-width: 100%; order: -1; }
+  .version {
+    position: static;
+    margin-top: 8px;
+  }
+
+  header {
+    padding-top: 22px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+    gap: 12px;
+  }
+
+  #sidebar {
+    width: 125px;
+    top: 10px;
+    left: 10px;
+  }
+
+  .bar {
+    flex-wrap: wrap;
+  }
+
+  .bar .title {
+    min-width: 100%;
+    order: -1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn, .game, .search, #sidebar { transition: none; }
+  .btn, .game, .search, #sidebar {
+    transition: none;
+  }
 }
 </style>
 </head>
 
 <body>
 <canvas id="bg" aria-hidden="true"></canvas>
-
-<!-- Sidebar -->
-<div id="edge-trigger" aria-hidden="true"></div>
 
 <nav id="sidebar" aria-label="Main navigation">
   <div class="sidebar-brand">Obscura</div>
@@ -469,8 +524,11 @@ h1, .version, .row-title, .name, .bar .title, .empty {
 <!-- HOME -->
 <section id="home">
   <h1>Obscura</h1>
-  <button class="home-games" id="home-games-button">
-    <span>🎮</span> Games
+  <div class="home-divider"></div>
+  <div class="home-white-line"></div>
+  <button class="home-games" id="home-games">
+    <span class="controller">🎮</span>
+    <span>Games</span>
   </button>
 </section>
 
@@ -566,6 +624,7 @@ function showPage(page) {
   closeGame(false);
 
   const onHome = page === "home";
+
   home.style.display = onHome ? "flex" : "none";
   gamesPage.classList.toggle("active", !onHome);
 
@@ -573,31 +632,17 @@ function showPage(page) {
   gamesTab.classList.toggle("active", !onHome);
 
   document.title = onHome ? "Obscura" : "Games (v1.7.35)";
-  sidebar.classList.remove("open");
 }
 
 homeTab.addEventListener("click", () => showPage("home"));
 gamesTab.addEventListener("click", () => showPage("games"));
-
-document.getElementById("home-games-button").addEventListener("click", () => {
-  showPage("games");
-});
-
-/* SIDEBAR */
-
-const edge = document.getElementById("edge-trigger");
-let sidebarTimer = null;
-let sidebarCloseTimer = null;
-
-function cancelSidebarTimers() {
-  clearTimeout(sidebarTimer);
-  clearTimeout(sidebarCloseTimer);
-}
+document.getElementById("home-games").addEventListener("click", () => showPage("games"));
 
 /* ABOUT:BLANK */
 
 function openBlank(url, title) {
   const w = window.open("about:blank", "_blank");
+
   if (!w) {
     alert("Your browser blocked the pop-up. Allow pop-ups for this site and try again.");
     return;
@@ -615,6 +660,7 @@ function openBlank(url, title) {
 }
 
 document.getElementById("blankSite").onclick = () => openBlank(location.href, "Obscura");
+
 document.getElementById("blankGame").onclick = () => {
   if (currentGame) openBlank(currentGame.url, currentGame.name);
 };
@@ -635,10 +681,6 @@ function openGame(g) {
     return;
   }
 
-  cancelSidebarTimers();
-  sidebar.classList.remove("open");
-  sidebar.style.display = "none";
-
   document.getElementById("ptitle").textContent = g.name;
   document.getElementById("newtab").href = g.url;
 
@@ -656,7 +698,6 @@ function closeGame(returnToPage = true) {
   player.classList.remove("fs", "show");
   frame.src = "about:blank";
   currentGame = null;
-  sidebar.style.display = "";
 
   if (returnToPage) {
     document.title = gamesPage.classList.contains("active")
@@ -693,10 +734,12 @@ function render(list) {
     img.alt = g.name;
     img.loading = "lazy";
     img.decoding = "async";
+
     img.onerror = () => {
       img.remove();
       icon.textContent = g.name.charAt(0).toUpperCase();
     };
+
     img.src = g.icon;
     icon.appendChild(img);
 
@@ -766,7 +809,10 @@ hot.addEventListener("click", () => {
 
 document.querySelector(".bar").addEventListener("mouseleave", hideBar);
 
-/* LOWER-LAG BACKGROUND */
+/* INK-WASH BACKGROUND
+   Fewer strands, fewer calculations, lower resolution,
+   and a slower frame rate to reduce lag.
+*/
 
 (function () {
   const cv = document.getElementById("bg");
@@ -778,7 +824,7 @@ document.querySelector(".bar").addEventListener("mouseleave", hideBar);
   let lastFrame = 0;
   let animationId = null;
 
-  const FPS = 15;
+  const FPS = 16;
   const FRAME_INTERVAL = 1000 / FPS;
 
   function size() {
@@ -799,30 +845,37 @@ document.querySelector(".bar").addEventListener("mouseleave", hideBar);
   for (let b = 0; b < 3; b++) {
     bundles.push({
       y: (b + .5) / 3,
-      amp: 50 + Math.random() * 90,
-      f: .0025 + Math.random() * .003,
-      sp: .25 + Math.random() * .35,
+      amp: 45 + Math.random() * 65,
+      f: .002 + Math.random() * .002,
+      sp: .2 + Math.random() * .2,
       ph: Math.random() * 6.28,
-      tilt: (Math.random() - .5) * .25,
-      gap: 6 + Math.random() * 4,
+      tilt: (Math.random() - .5) * .15,
+      gap: 9 + Math.random() * 5,
       n: 4
     });
   }
 
   function draw(t) {
-    ctx.fillStyle = "#030303";
+    ctx.fillStyle = "#030302";
     ctx.fillRect(0, 0, W, H);
 
-    const g = ctx.createRadialGradient(
-      W * .5, H * .4, 0,
-      W * .5, H * .4, Math.max(W, H) * .8
-    );
+    /* Soft ink clouds */
+    const clouds = [
+      [W * .2, H * .25, Math.max(W, H) * .65],
+      [W * .8, H * .7, Math.max(W, H) * .55],
+      [W * .5, H * .5, Math.max(W, H) * .8]
+    ];
 
-    g.addColorStop(0, "rgba(255,255,255,.07)");
-    g.addColorStop(1, "rgba(0,0,0,0)");
+    for (let i = 0; i < clouds.length; i++) {
+      const c = clouds[i];
+      const g = ctx.createRadialGradient(c[0], c[1], 0, c[0], c[1], c[2]);
+      g.addColorStop(0, "rgba(120,115,105,.055)");
+      g.addColorStop(.5, "rgba(65,60,55,.025)");
+      g.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+    }
 
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, W, H);
     ctx.lineCap = "round";
 
     for (const bd of bundles) {
@@ -831,13 +884,13 @@ document.querySelector(".bar").addEventListener("mouseleave", hideBar);
 
         ctx.beginPath();
 
-        for (let x = -20; x <= W + 20; x += 30) {
-          const weave = 1 + .9 * Math.sin(x * bd.f * .7 + bd.ph + t * .0002);
+        for (let x = -20; x <= W + 20; x += 32) {
+          const weave = 1 + .6 * Math.sin(x * bd.f * .7 + bd.ph + t * .00015);
 
           const y = bd.y * H
             + bd.tilt * (x - W / 2)
-            + Math.sin(x * bd.f + bd.ph + t * .001 * bd.sp) * bd.amp
-            + Math.sin(x * bd.f * 2.3 + i * .5 + t * .0014 * bd.sp) * bd.amp * .22
+            + Math.sin(x * bd.f + bd.ph + t * .0005 * bd.sp) * bd.amp
+            + Math.sin(x * bd.f * 2 + i * .5 + t * .0007 * bd.sp) * bd.amp * .2
             + k * bd.gap * weave;
 
           if (x === -20) ctx.moveTo(x, y);
@@ -845,8 +898,8 @@ document.querySelector(".bar").addEventListener("mouseleave", hideBar);
         }
 
         const edge = 1 - Math.abs(k) / (bd.n / 2);
-        ctx.strokeStyle = "rgba(255,255,255," + (.06 + edge * .3) + ")";
-        ctx.lineWidth = .8 + edge * 2.2;
+        ctx.strokeStyle = "rgba(220,215,200," + (.035 + edge * .13) + ")";
+        ctx.lineWidth = .7 + edge * 1.2;
         ctx.stroke();
       }
     }
